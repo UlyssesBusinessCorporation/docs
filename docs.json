@@ -20,10 +20,23 @@
   "navigation": {
     "pages": [
       {
-        "group": "Getting Started",
+        "group": "Get started",
         "pages": [
           "index",
           "quickstart"
+        ]
+      },
+      {
+        "group": "CLI",
+        "pages": [
+          "cli/install",
+          "cli/auth"
+        ]
+      },
+      {
+        "group": "Concepts",
+        "pages": [
+          "concepts/overview"
         ]
       },
       {

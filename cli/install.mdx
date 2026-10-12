@@ -1,0 +1,51 @@
+---
+title: "Install the CLI"
+description: "Install ulysses-cli from install.tryulysses.com with a single curl command."
+---
+
+Install the Ulysses command-line client on macOS, Linux, or Windows. The CLI talks to the same authenticated workspaces as [app.tryulysses.com](https://app.tryulysses.com).
+
+## Install
+
+```bash
+curl -fsSL https://install.tryulysses.com/cli | sh
+```
+
+What the script does:
+
+1. Ensures [uv](https://docs.astral.sh/uv/) is available (installs it if missing)
+2. Downloads the current signed wheel from `https://install.tryulysses.com`
+3. Verifies SHA-256 and the GitHub release signature
+4. Installs the `ulysses-cli` tool on your `PATH`
+
+Verify:
+
+```bash
+ulysses-cli --version
+```
+
+## Upgrade
+
+```bash
+ulysses-cli update
+```
+
+`update` uses the same install host as the curl installer.
+
+## Requirements
+
+- Python 3.11+ (uv can supply an interpreter if the machine does not have one)
+- Outbound HTTPS to `install.tryulysses.com` and your chosen environment (`production` by default)
+
+## Local development install
+
+If you are working from a checkout of the CLI repository:
+
+```bash
+uv tool install --force --editable .
+```
+
+## Next
+
+- [Authenticate](/cli/auth)
+- [Quickstart](/quickstart)

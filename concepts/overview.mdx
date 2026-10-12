@@ -1,0 +1,58 @@
+---
+title: "Core concepts"
+description: "Workspaces, projects, opportunities, and awards—the vocabulary behind Ulysses."
+---
+
+Ulysses organizes funding work around a small set of records. Knowing these terms makes the app, CLI, and docs easier to navigate.
+
+## Workspace
+
+A **workspace** (tenant) is the security and data boundary for your organization. Sign-in and CLI profiles are always attached to one active workspace. Switch with `ulysses-cli auth contexts` and `ulysses-cli auth use <tenant-id>`, or in the app if you belong to more than one.
+
+## Organizations
+
+Within a workspace, **organizations** represent the agencies or entities your team works with. List them with `ulysses-cli organizations list` or open them in the app.
+
+## Projects
+
+**Projects** are capital projects and public programs you track—the work that needs funding. Each project can carry identifiers (for example federal, state, or CIP numbers) and status fields your team updates over time.
+
+```bash
+ulysses-cli projects list
+ulysses-cli projects show <project-id>
+```
+
+## Opportunities
+
+**Opportunities** are funding opportunities you can discover, filter, and match to projects.
+
+```bash
+ulysses-cli opportunities list
+ulysses-cli matches show <project-id>
+```
+
+## Awards
+
+**Awards** are funded awards tied to the work they support. They are how the portfolio answers “what is paying for this?”
+
+```bash
+ulysses-cli awards list
+ulysses-cli awards show <award-id>
+```
+
+## Activity
+
+**Activity** is a recent change feed across the portfolio—useful for spotting what moved since you last looked.
+
+```bash
+ulysses-cli activity list
+```
+
+## Surfaces
+
+| Surface | Best for |
+| --- | --- |
+| [Web app](https://app.tryulysses.com) | Day-to-day portfolio work and chat |
+| [CLI](/cli/install) | Scripts, CI, and agent workflows |
+
+Both use the same authenticated workspace and the same underlying records.

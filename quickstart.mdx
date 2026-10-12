@@ -1,36 +1,91 @@
 ---
 title: "Quickstart"
-description: "Get from zero to a useful first session in Ulysses"
+description: "Install the CLI or open the app, sign in, and complete a first useful action in Ulysses."
 ---
 
-This quickstart takes you from account access to a first productive session in the Ulysses app.
+Get from zero to a signed-in session that can read your workspace—reliably and on the path your team will use day to day.
+
+You can start with the **CLI** (recommended for agents and scripts) or the **web app**. Both require an invited account for your organization.
+
+<Note>
+  Prefer the app only? Skip to [Use the web app](#use-the-web-app). Prefer the terminal? Follow steps 1–4 below.
+</Note>
 
 ## Prerequisites
 
-Before you begin, you need:
-
 - An invitation or account for your organization
-- Access to [app.tryulysses.com](https://app.tryulysses.com) in a modern browser
+- macOS, Linux, or Windows with a network path to `install.tryulysses.com` and `app.tryulysses.com`
+- For the CLI path: `curl` and a shell (the installer brings [uv](https://docs.astral.sh/uv/) if needed)
 
-## Get started
+## 1. Install the CLI
 
-<Steps>
-  <Step title="Open the app">
-    Go to [https://app.tryulysses.com](https://app.tryulysses.com) and sign in with the identity provider your organization uses.
-  </Step>
-  <Step title="Confirm your workspace">
-    After sign-in, confirm you are in the correct organization workspace. If you belong to more than one, switch to the workspace you intend to use.
-  </Step>
-  <Step title="Explore your home surface">
-    From the main app, open the areas your role uses most—projects, funding, or chat with Ulysses—and complete one concrete task (for example, open a project or ask a question about your data).
-  </Step>
-</Steps>
+```bash
+curl -fsSL https://install.tryulysses.com/cli | sh
+```
 
-## Next steps
+The script installs uv when missing, downloads the signed wheel from the install host, verifies the SHA-256 and release signature, then installs the `ulysses-cli` command.
 
-- Read the [Overview](/) for how this documentation is organized
-- Browse [Guides](/guides/overview) for longer workflows as they are published
+Confirm the install:
 
-<Tip>
-  Need help? Email [support@tryulysses.com](mailto:support@tryulysses.com).
-</Tip>
+```bash
+ulysses-cli --version
+```
+
+Upgrade later with:
+
+```bash
+ulysses-cli update
+```
+
+Full detail: [Install the CLI](/cli/install).
+
+## 2. Sign in
+
+```bash
+ulysses-cli auth login
+```
+
+Complete the device login in the browser. Tokens are stored in the OS keychain when available; profile metadata lives in `~/.ulysses/config`.
+
+Check the active principal:
+
+```bash
+ulysses-cli auth whoami
+```
+
+If you belong to more than one workspace:
+
+```bash
+ulysses-cli auth contexts
+ulysses-cli auth use <tenant-id>
+```
+
+See [CLI authentication](/cli/auth).
+
+## 3. List something real
+
+Pick one read that matches your role:
+
+```bash
+ulysses-cli organizations list
+ulysses-cli projects list
+ulysses-cli opportunities list
+ulysses-cli awards list
+```
+
+Bare `ulysses-cli` prints the command tree. In a terminal you get human-readable output; pipes default to JSON. Force a format with `--output json` or `--output human` before the subcommand.
+
+## 4. (Optional) Use the web app
+
+1. Open [https://app.tryulysses.com](https://app.tryulysses.com) and sign in with your organization’s identity provider.
+2. Confirm you are in the correct workspace.
+3. Open projects, funding, or chat and complete one concrete task—for example, open a project or ask a question about your portfolio.
+
+## What's next
+
+- [Concepts](/concepts/overview) — how projects, opportunities, and awards relate
+- [CLI install](/cli/install) — install host, upgrades, and platforms
+- [CLI authentication](/cli/auth) — profiles, logout, and device sessions
+- [Guides](/guides/overview) — longer task-focused how-tos as they publish
+
+Need help? Email [support@tryulysses.com](mailto:support@tryulysses.com).
