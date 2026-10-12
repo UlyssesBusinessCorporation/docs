@@ -1,0 +1,79 @@
+---
+title: "CLI for agents and scripts"
+description: "Use JSON output, envelopes, and safe defaults when driving ulysses-cli from automation."
+---
+
+When a script or coding agent drives Ulysses, always request JSON and treat the envelope as the contract.
+
+## Invoke
+
+```bash
+ulysses-cli --output json <resource> <action>
+```
+
+`--output` is a root option and must come before the subcommand. Prefer `--output json` even in a terminal so agents do not parse the human view.
+
+Discover available commands instead of guessing flags:
+
+```bash
+ulysses-cli --output json
+```
+
+## Response envelope
+
+Success:
+
+```json
+{
+  "ok": true,
+  "command": "ulysses-cli projects list",
+  "result": {},
+  "next_actions": []
+}
+```
+
+Failure:
+
+```json
+{
+  "ok": false,
+  "command": "…",
+  "error": { "code": "API_ERROR", "message": "…" },
+  "fix": "…",
+  "next_actions": []
+}
+```
+
+- Stop when `ok` is `false`
+- Follow `next_actions` when the next step is unclear
+- List results include `showing`, `total`, and `truncated` (default page size is 50; page with `--limit` / `--offset`)
+
+## Auth errors to expect
+
+| Signal | Meaning |
+| --- | --- |
+| `CONFIG_INVALID` | No usable profile—run `auth login` |
+| `401` | Session expired—sign in again |
+| `403` | Profile cannot access the resource |
+| `500` / `502` / `503` on `whoami` | Gateway failure—retry after it recovers |
+
+Do not print access or refresh tokens. They live in the OS keychain.
+
+## Safe defaults
+
+- Prefer **reads** (`list`, `show`, `matches show`, `activity list`) unless the user asked for a write
+- Do not invent project, opportunity, or award IDs—take them from a prior list
+- Do not run `auth use` or `auth login` unless the user asked to switch workspace or sign in
+- Copy web links from `links resolve` or from `result.url` on create/list/show—do not hand-build `/fund/…` paths
+
+## Example: list projects as JSON
+
+```bash
+ulysses-cli --output json projects list --limit 50
+```
+
+## Next
+
+- [CLI commands](/cli/commands)
+- [CLI authentication](/cli/auth)
+- [Quickstart](/quickstart)

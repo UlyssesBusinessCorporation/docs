@@ -1,0 +1,64 @@
+---
+title: "Create a project"
+description: "Register a project from the CLI with title, ZIP code, and project type."
+---
+
+Create a project in the active workspace from the terminal. This path is for users (and agents) who already completed [Quickstart](/quickstart) and have `project:write` on the tenant.
+
+## Prerequisites
+
+- CLI installed and signed in ([Install](/cli/install), [Auth](/cli/auth))
+- Correct workspace selected (`ulysses-cli auth whoami`)
+- Permission to create projects in that workspace
+
+## 1. Confirm the workspace
+
+```bash
+ulysses-cli --output json auth whoami
+```
+
+If you need a different tenant:
+
+```bash
+ulysses-cli --output json auth contexts
+ulysses-cli --output json auth use <tenant-id>
+```
+
+## 2. Create the project
+
+```bash
+ulysses-cli --output json projects create \
+  --title "Bridge retrofit" \
+  --postal-code 94901 \
+  --project-type infrastructure \
+  --summary "Seismic work"
+```
+
+| Flag | Notes |
+| --- | --- |
+| `--title` | Required |
+| `--postal-code` | Required US ZIP; gateway derives the state |
+| `--project-type` | One of `infrastructure`, `childcare`, `workforce_development`, `housing`, `education`, `health`, `environment`, `arts_culture`, `public_safety`, `other` |
+| `--summary` | Optional |
+
+Create attaches the project to the tenant’s captured organization. There is no organization flag.
+
+A successful create returns `projectId`, `created: true`, and `url`. Open that URL in the app, or resolve it later with `links resolve project <project-id>`.
+
+## 3. (Optional) Update fields
+
+`projects update` changes only the flags you pass. Title and project type stay as they were at create time.
+
+```bash
+ulysses-cli --output json projects update <project-id> --summary "New description"
+ulysses-cli --output json projects update <project-id> --federal-number FED-1001
+ulysses-cli --output json projects update <project-id> --hold --hold-reason "Waiting on permits"
+```
+
+Use `--summary-mode append` to append to the summary, `--release-hold` to clear a hold, and a blank `--federal-number` / `--state-award-number` / `--cip-number` to clear those values.
+
+## What's next
+
+- [Match opportunities](/guides/match-opportunities) for a project
+- [CLI commands](/cli/commands)
+- [Core concepts](/concepts/overview)

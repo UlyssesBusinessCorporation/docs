@@ -1,0 +1,57 @@
+---
+title: "Match opportunities"
+description: "Inspect stored opportunity matches for a project from the CLI."
+---
+
+See which funding opportunities Ulysses has already scored for a project. The CLI reads the latest stored snapshot—it does not rescore from the terminal.
+
+## Prerequisites
+
+- CLI installed and signed in
+- A project ID from `projects list` or `projects show`
+
+## 1. Find the project
+
+```bash
+ulysses-cli --output json projects list --limit 50
+```
+
+Copy the `projectId` you care about.
+
+## 2. Show matches
+
+```bash
+ulysses-cli --output json matches show <project-id>
+```
+
+The result includes `projectId`, `scoredAt`, and `matches`. Each match has:
+
+| Field | Meaning |
+| --- | --- |
+| `opportunityId` | ID to pass to `opportunities show` |
+| `opportunityName` | Display name |
+| `score` | Numeric score |
+| `band` | `Strong`, `Moderate`, or `Weak` |
+| `rationale` | Why it matched |
+| `factors` | Contributing factors |
+
+`--limit` caps rows in the envelope (default 50).
+
+<Note>
+  An empty `matches` list with `scoredAt` null means that project has no stored snapshot yet. That is a successful read, not an error.
+</Note>
+
+## 3. Open a matched opportunity
+
+```bash
+ulysses-cli --output json opportunities show <opportunity-id>
+ulysses-cli --output json links resolve opportunity <opportunity-id>
+```
+
+Copy `result.url` to open the record in the app.
+
+## What's next
+
+- [Create a project](/guides/create-a-project)
+- [CLI commands](/cli/commands)
+- [Use cases](/use-cases/overview)

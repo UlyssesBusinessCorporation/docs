@@ -23,14 +23,17 @@
         "group": "Get started",
         "pages": [
           "index",
-          "quickstart"
+          "quickstart",
+          "use-cases/overview"
         ]
       },
       {
         "group": "CLI",
         "pages": [
           "cli/install",
-          "cli/auth"
+          "cli/auth",
+          "cli/commands",
+          "cli/agents"
         ]
       },
       {
@@ -42,7 +45,9 @@
       {
         "group": "Guides",
         "pages": [
-          "guides/overview"
+          "guides/overview",
+          "guides/create-a-project",
+          "guides/match-opportunities"
         ]
       }
     ],
