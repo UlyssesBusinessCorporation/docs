@@ -46,7 +46,8 @@
   },
   "logo": {
     "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "dark": "/logo/dark.svg",
+    "href": "https://docs.tryulysses.com"
   },
   "navbar": {
     "links": [
