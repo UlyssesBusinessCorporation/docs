@@ -68,6 +68,19 @@ ulysses-cli [--output json|human] <resource> <action>
 | `auth sessions` / `auth revoke <session-id>` | Device grants |
 | `auth logout [--all]` | Sign out |
 
+### Team
+
+Requires an active workspace (`auth use <tenant-id>`). Invite / update / remove need the tenant **admin** role.
+
+| Command | What it does |
+| --- | --- |
+| `users list` / `show <user-id>` | Teammates in the active workspace |
+| `users invite --email <address> [--role member\|admin]` | Email an invite |
+| `users update <user-id> [--role …] [--status ACTIVE\|DEACTIVATED]` | Change role or status |
+| `users remove <user-id>` | Remove a teammate |
+
+Take user IDs from `users list`. Do not invent them.
+
 ### Portfolio
 
 | Command | What it does |
