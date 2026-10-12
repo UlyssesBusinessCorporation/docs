@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Ulysses Docs ·",
+  "name": "Ulysses Docs",
   "colors": {
     "primary": "#0F3D3E",
     "light": "#1F6F70",
