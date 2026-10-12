@@ -18,6 +18,24 @@ ulysses-cli update
 
 The installer ensures [uv](https://docs.astral.sh/uv/) is available, downloads the signed wheel from `install.tryulysses.com`, verifies SHA-256 and the release signature, then puts `ulysses-cli` on your `PATH`.
 
+## Sign up
+
+New accounts start with a personal workspace. Signup emails a browser setup link—you never pass a password on the CLI.
+
+```bash
+ulysses-cli auth signup --email you@example.com
+```
+
+Optional: `--first-name`, `--last-name`, and `--env` (`production` default, `staging`, or `local`).
+
+Finish the link in the browser to create the workspace, then run `auth login`. Until that link is completed, there is no tenant to sign into.
+
+<Note>
+  A success response means the auth host accepted the request. It does **not** confirm that a workspace was created, and it does **not** reveal whether the email is already registered. Local responses may include a `setupUrl`; deployed responses do not.
+</Note>
+
+If you were invited to an organization, you already have an account—skip signup and use `auth login`.
+
 ## Sign in
 
 ```bash
@@ -25,7 +43,7 @@ ulysses-cli auth login
 ulysses-cli auth whoami
 ```
 
-Optional environment: `--env production` (default), `staging`, or `local`. Switch workspaces with `auth contexts` and `auth use <tenant-id>`.
+Device login opens in the browser. Do not pass a password. Optional environment: `--env production` (default), `staging`, or `local`. Named profiles: `--profile <name>`. Switch workspaces with `auth contexts` and `auth use <tenant-id>`.
 
 Tokens live in the OS keychain when available; profile metadata is in `~/.ulysses/config`. Revoke with `auth logout` or from **Settings → Devices** in the app.
 
@@ -43,8 +61,8 @@ ulysses-cli [--output json|human] <resource> <action>
 
 | Command | What it does |
 | --- | --- |
-| `auth login [--env …] [--profile <name>]` | Device login |
 | `auth signup --email <address>` | Email a setup link (finish in browser, then login) |
+| `auth login [--env …] [--profile <name>]` | Device login |
 | `auth whoami` | Principal and active profile |
 | `auth contexts` / `auth use <tenant-id>` | List / activate workspaces |
 | `auth sessions` / `auth revoke <session-id>` | Device grants |
