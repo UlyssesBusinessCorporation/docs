@@ -8,6 +8,10 @@
     "dark": "#0A2A2B"
   },
   "favicon": "/favicon.svg",
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
   "seo": {
     "metatags": {
       "canonical": "https://docs.tryulysses.com"
