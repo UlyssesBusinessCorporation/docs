@@ -28,12 +28,10 @@
         ]
       },
       {
-        "group": "CLI",
+        "group": "Interfaces",
         "pages": [
-          "cli/install",
-          "cli/auth",
-          "cli/commands",
-          "cli/agents"
+          "interfaces/cli",
+          "interfaces/mcp"
         ]
       },
       {
@@ -84,6 +82,12 @@
       "href": "https://app.tryulysses.com"
     }
   },
+  "redirects": [
+    { "source": "/cli/install", "destination": "/interfaces/cli" },
+    { "source": "/cli/auth", "destination": "/interfaces/cli" },
+    { "source": "/cli/commands", "destination": "/interfaces/cli" },
+    { "source": "/cli/agents", "destination": "/interfaces/cli" }
+  ],
   "contextual": {
     "options": [
       "copy",

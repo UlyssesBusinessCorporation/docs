@@ -1,0 +1,81 @@
+---
+title: "CLI"
+description: "Install ulysses-cli, sign in, and operate your workspace from the terminal."
+---
+
+The Ulysses CLI talks to the same authenticated workspaces as [app.tryulysses.com](https://app.tryulysses.com). Use it for scripts, CI, and agent workflows.
+
+## Install
+
+```bash
+curl -fsSL https://install.tryulysses.com/cli | sh
+```
+
+```bash
+ulysses-cli --version
+ulysses-cli update
+```
+
+The installer ensures [uv](https://docs.astral.sh/uv/) is available, downloads the signed wheel from `install.tryulysses.com`, verifies SHA-256 and the release signature, then puts `ulysses-cli` on your `PATH`.
+
+## Sign in
+
+```bash
+ulysses-cli auth login
+ulysses-cli auth whoami
+```
+
+Optional environment: `--env production` (default), `staging`, or `local`. Switch workspaces with `auth contexts` and `auth use <tenant-id>`.
+
+Tokens live in the OS keychain when available; profile metadata is in `~/.ulysses/config`. Revoke with `auth logout` or from **Settings → Devices** in the app.
+
+## Invoke
+
+```bash
+ulysses-cli [--output json|human] <resource> <action>
+```
+
+`--output` must come before the subcommand. A terminal defaults to human output; pipes default to JSON. Bare `ulysses-cli` prints the command tree.
+
+## Commands
+
+### Authentication
+
+| Command | What it does |
+| --- | --- |
+| `auth login [--env …] [--profile <name>]` | Device login |
+| `auth signup --email <address>` | Email a setup link (finish in browser, then login) |
+| `auth whoami` | Principal and active profile |
+| `auth contexts` / `auth use <tenant-id>` | List / activate workspaces |
+| `auth sessions` / `auth revoke <session-id>` | Device grants |
+| `auth logout [--all]` | Sign out |
+
+### Portfolio
+
+| Command | What it does |
+| --- | --- |
+| `organizations list` / `show` | Organizations in the active tenant |
+| `projects list` / `show` / `create` / `update` | Projects (writes need `project:write`) |
+| `matches show <project-id>` | Stored opportunity matches |
+| `opportunities list` / `show` | Funding opportunities |
+| `awards list` / `show` | Awards |
+| `activity list` | Recent activity |
+| `links resolve <kind> <id>` | Web URL (`project`, `opportunity`, or `award`) |
+
+Take show IDs from a list result. Do not invent them.
+
+## Agents and scripts
+
+Prefer JSON and treat the envelope as the contract:
+
+```bash
+ulysses-cli --output json projects list --limit 50
+```
+
+Success responses include `ok: true` and `result`. Failures include `ok: false`, `error`, and often `next_actions`. Stop on failure. Prefer reads unless the user asked for a write. Do not print access or refresh tokens.
+
+## Guides
+
+- [Quickstart](/quickstart)
+- [Create a project](/guides/create-a-project)
+- [Match opportunities](/guides/match-opportunities)
