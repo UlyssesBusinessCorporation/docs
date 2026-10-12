@@ -7,7 +7,7 @@
     "light": "#1F6F70",
     "dark": "#0A2A2B"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/pinecone-mark.png",
   "appearance": {
     "default": "light",
     "strict": true
@@ -79,10 +79,22 @@
     }
   },
   "redirects": [
-    { "source": "/cli/install", "destination": "/interfaces/cli" },
-    { "source": "/cli/auth", "destination": "/interfaces/cli" },
-    { "source": "/cli/commands", "destination": "/interfaces/cli" },
-    { "source": "/cli/agents", "destination": "/interfaces/cli" }
+    {
+      "source": "/cli/install",
+      "destination": "/interfaces/cli"
+    },
+    {
+      "source": "/cli/auth",
+      "destination": "/interfaces/cli"
+    },
+    {
+      "source": "/cli/commands",
+      "destination": "/interfaces/cli"
+    },
+    {
+      "source": "/cli/agents",
+      "destination": "/interfaces/cli"
+    }
   ],
   "contextual": {
     "options": [

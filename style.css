@@ -1,20 +1,6 @@
-/* Match tryulysses.com landing wordmark (Newsreader). */
+/* Match tryulysses.com brand: pinecone mark + Newsreader wordmark. */
 img.nav-logo {
-  display: none !important;
-}
-
-a:has(> img.nav-logo)::before {
-  content: "Ulysses";
-  display: inline-block;
-  font-family: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
-  font-optical-sizing: auto;
-  font-size: 1.75rem;
-  font-weight: 500;
-  font-stretch: normal;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  font-synthesis: none;
-  transform: scaleY(1.06);
-  transform-origin: left center;
-  color: inherit;
+  height: 2.25rem !important;
+  width: auto !important;
+  max-width: none !important;
 }
