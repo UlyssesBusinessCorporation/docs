@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="140" height="32" viewBox="0 0 140 32" fill="none" role="img" aria-label="Ulysses">
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="36" viewBox="0 0 120 36" fill="none" role="img" aria-label="Ulysses">
   <text
     x="0"
-    y="24"
+    y="26"
     fill="#F5F7F7"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="26"
-    font-weight="600"
-    letter-spacing="-0.04em"
+    font-family="Newsreader, Georgia, 'Times New Roman', serif"
+    font-size="28"
+    font-weight="500"
+    letter-spacing="-0.01em"
   >Ulysses</text>
 </svg>

@@ -12,6 +12,16 @@
     "default": "light",
     "strict": true
   },
+  "fonts": {
+    "heading": {
+      "family": "Newsreader",
+      "weight": 500
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
   "seo": {
     "metatags": {
       "canonical": "https://docs.tryulysses.com"
@@ -48,26 +58,12 @@
           "guides/match-opportunities"
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "App",
-          "href": "https://app.tryulysses.com",
-          "icon": "arrow-up-right-from-square"
-        },
-        {
-          "anchor": "Website",
-          "href": "https://tryulysses.com",
-          "icon": "globe"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
-    "href": "https://docs.tryulysses.com"
+    "href": "https://docs.tryulysses.com/"
   },
   "navbar": {
     "links": [
