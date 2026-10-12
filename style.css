@@ -1,6 +1,7 @@
-/* Match tryulysses.com brand: pinecone mark + Newsreader wordmark. */
+/* Keep nav logo aspect ratio (pinecone is taller than wide). */
 img.nav-logo {
-  height: 2.25rem !important;
+  height: 1.75rem !important;
   width: auto !important;
   max-width: none !important;
+  object-fit: contain !important;
 }
