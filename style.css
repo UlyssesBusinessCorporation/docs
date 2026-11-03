@@ -5,3 +5,9 @@ img.nav-logo {
   max-width: none !important;
   object-fit: contain !important;
 }
+
+/* Bold the sidebar section headers (Get started, Concepts, Interfaces, Guides). */
+.sidebar-group-header,
+.sidebar-group-header .sidebar-title {
+  font-weight: 700 !important;
+}

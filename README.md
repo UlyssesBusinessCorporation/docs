@@ -8,6 +8,23 @@ Public product documentation for [docs.tryulysses.com](https://docs.tryulysses.c
 | Mintlify URL | https://tryulysses.mintlify.site |
 | Dashboard | https://app.mintlify.com |
 
+
+## Pages
+
+| File | Page |
+| --- | --- |
+| `introduction.mdx` | What Ulysses is, what it covers today, and where to start |
+| `index.mdx` | Same page at the site root, so `/` matches `/introduction` |
+| `quickstart.mdx` | Sign in through the web app or the CLI |
+| `use-cases/overview.mdx` | Common goals and where to start each one, with a subpage for each use case |
+| `roadmap.mdx` | Features in development |
+| `concepts/*.mdx` | One page for each building block: workspace, organizations, projects and programs, opportunities, awards, connections and datasets, and activity |
+| `guides/create-a-project.mdx` | Create a project or program in the web app or the CLI |
+| `guides/match-opportunities.mdx` | Read stored opportunity matches |
+| `interfaces/web-app.mdx` | Day-to-day work in the web app |
+| `interfaces/cli.mdx` | CLI reference |
+| `interfaces/mcp.mdx` | MCP (not yet available) |
+
 ## Local preview
 
 Requires Node.js 20.17+.
