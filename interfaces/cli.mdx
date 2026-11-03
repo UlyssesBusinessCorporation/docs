@@ -25,13 +25,24 @@ ulysses-cli auth login
 ulysses-cli auth whoami
 ```
 
-Device login opens in your browser. Never pass a password to the CLI.
+Device login opens in your browser, where you choose a workspace your account belongs to. Never pass a password to the CLI.
 
 - Choose an environment with `--env production` (default), `staging`, or `local`.
-- Use named profiles with `--profile <name>`.
-- Switch workspaces with `auth contexts`, then `auth use <tenant-id>`.
+- Skip the workspace picker with `--tenant "<workspace name>"`.
+- Each login is saved as a profile named after the workspace in snake case. `County of Example` becomes `county_of_example`. Override the name with `--profile <name>`.
 
 Tokens are stored in your OS keychain when available. Profile settings live in `~/.ulysses/config`. Sign out with `auth logout`, or revoke a device in the web app under **Settings → Devices**.
+
+### Switch workspaces
+
+Each profile is bound to one workspace. To work in another workspace, sign in to it once with `auth login`, then switch between saved profiles:
+
+```bash
+ulysses-cli auth contexts
+ulysses-cli auth use county_of_example
+```
+
+`auth contexts` lists the workspaces you've signed in to on this computer. `auth use` activates one of them. Add `--profile <name>` to any command to run it against a saved profile without switching.
 
 ### Sign up without an invitation
 
@@ -53,7 +64,7 @@ Optional flags: `--first-name`, `--last-name`, and `--env`. Finish setup in your
 ulysses-cli [--output json|human] <resource> <action>
 ```
 
-`--output` must come before the resource. Output is human-readable in a terminal and JSON when piped. Run `ulysses-cli` on its own to see every command.
+`--output` must come before the resource. Output is human-readable in a terminal and JSON when piped. Run `ulysses-cli` on its own to see every command. Add `--profile <name>` or `--config <path>` after the resource and action to override the profile or config file for one command.
 
 ## Commands
 
@@ -62,11 +73,14 @@ ulysses-cli [--output json|human] <resource> <action>
 | Command | What it does |
 | --- | --- |
 | `auth signup --email <address>` | Email a setup link. |
-| `auth login [--env …] [--profile <name>]` | Sign in with device login. |
+| `auth login [--env …] [--tenant <name>] [--profile <name>]` | Sign in with device login and choose a workspace. |
 | `auth whoami` | Show who you're signed in as and the active profile. |
-| `auth contexts` / `auth use <tenant-id>` | List workspaces / switch workspace. |
+| `auth contexts` | List workspaces you've signed in to on this computer. |
+| `auth use <profile>` | Switch to a saved profile, such as `county_of_example`. |
 | `auth sessions` / `auth revoke <session-id>` | List / revoke device sessions. |
-| `auth logout [--all]` | Sign out. |
+| `auth logout [--all]` | Sign out of the active profile, or every profile. |
+
+Other commands: `ulysses-cli --version` shows the installed version, and `ulysses-cli update` upgrades it.
 
 ### Team
 
@@ -83,15 +97,69 @@ These commands need an active workspace. Inviting, updating, and removing teamma
 
 | Command | What it does |
 | --- | --- |
-| `organizations list` / `show` | Organizations in the workspace. |
-| `projects list` / `show` / `create` / `update` | Projects. Creating and updating require `project:write`. |
-| `matches show <project-id>` | Stored opportunity matches for a project. |
-| `opportunities list` / `show` | Funding opportunities. |
-| `awards list` / `show` | Awards. |
-| `activity list` | Recent activity. |
+| `organizations list [--limit] [--search]` / `show <organization-id>` | Organizations in the workspace. |
+| `projects list [--limit] [--offset] [--status] [--search]` / `show <project-id>` | Projects. `show` includes the capital stack when it's set. |
+| `projects create --title --postal-code --project-type [--summary]` | Register a project. Requires `project:write`. |
+| `projects update <project-id> [flags]` | Update a project. Requires `project:write`. See [Update a project](#update-a-project). |
+| `matches show <project-id> [--limit]` | Stored opportunity matches for a project, with scores. |
+| `matches feedback set <project-id> --rating up\|down …` | Record a thumb on a match. See [Give feedback on matches](#give-feedback-on-matches). |
+| `matches feedback delete <project-id> …` | Remove your thumb on a match. |
+| `opportunities list [--limit] [--offset] [--status] [--listing open\|closed] [--search]` / `show <opportunity-id>` | Funding opportunities. |
+| `funding list [--limit] [--offset] [--status] [--search] [--project]` / `show <funding-id>` | Grants, or every kind of funding on one project. |
+| `funding open --kind … --name … --amount … --project …` | Open a fund on an existing project. See [Open and update funding](#open-and-update-funding). |
+| `funding update <funding-id> [--name] [--amount] [--currency]` | Correct a fund's name or amount. |
+| `activity list [--limit]` | Recent activity. |
 | `links resolve <kind> <id>` | Web app URL for a `project`, `opportunity`, or `award`. |
 
 Get IDs from a `list` command. Don't guess them.
+
+<Note>
+  Awards are managed with `funding`. The CLI has no separate `awards` command.
+</Note>
+
+### Update a project
+
+`projects update` changes only the flags you pass. Title and project type stay as they were when you created the project.
+
+```bash
+ulysses-cli projects update <project-id> --summary "New description"
+ulysses-cli projects update <project-id> --summary "More detail" --summary-mode append
+ulysses-cli projects update <project-id> --estimated-total 5000000
+ulysses-cli projects update <project-id> --hold --hold-reason "Waiting on permits"
+```
+
+| Flag | What it does |
+| --- | --- |
+| `--summary` | Set the narrative summary. `--summary-mode overwrite` (default) or `append`. |
+| `--estimated-total` | Replace the project's own cost estimate. |
+| `--federal-number`, `--state-award-number`, `--cip-number` | Set an identifier. Pass a blank value to clear it. |
+| `--munis` | Replace the Munis numbers. |
+| `--hold`, `--hold-reason` | Place the project on hold, with an optional reason. |
+| `--release-hold` | Clear a hold. Don't combine it with `--hold`. |
+
+### Give feedback on matches
+
+Record a thumb on a match. A later rating replaces the earlier one. Pass exactly one of `--listing-id` or `--opportunity-id`.
+
+```bash
+ulysses-cli matches feedback set <project-id> --rating up --opportunity-id <opportunity-id>
+ulysses-cli matches feedback set <project-id> --rating down --listing-id <listing-id> \
+  --reason "Eligibility gate was not scored."
+ulysses-cli matches feedback delete <project-id> --opportunity-id <opportunity-id>
+```
+
+`--reason` is an optional explanation. Leave it out to keep a stored reason, or pass `--reason ""` to clear it. `feedback delete` removes only your own thumb.
+
+### Open and update funding
+
+`funding open` adds a fund to a project that already exists. `--kind` is `general_fund`, `specialty_fund`, `bond`, or `other_fund`.
+
+```bash
+ulysses-cli funding open --kind bond --name "Series A bond" --amount 2000000 --project <project-id>
+ulysses-cli funding update <funding-id> --amount 2500000
+```
+
+The organization defaults to your workspace. Pass `--organization-id` to override it. The fund stays on the project where you opened it.
 
 ## Scripts and AI agents
 
