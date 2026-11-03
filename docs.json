@@ -41,15 +41,13 @@
       {
         "group": "Concepts",
         "pages": [
-          "concepts/overview"
-        ]
-      },
-      {
-        "group": "Guides",
-        "pages": [
-          "guides/overview",
-          "guides/create-a-project",
-          "guides/match-opportunities"
+          "concepts/workspace",
+          "concepts/organizations",
+          "concepts/projects-and-programs",
+          "concepts/opportunities",
+          "concepts/awards",
+          "concepts/connections-and-datasets",
+          "concepts/activity"
         ]
       },
       {
@@ -58,6 +56,23 @@
           "interfaces/web-app",
           "interfaces/cli",
           "interfaces/mcp"
+        ]
+      },
+      {
+        "group": "Guides",
+        "pages": [
+          "guides/see-your-portfolio",
+          "guides/see-how-its-funded",
+          "guides/ask-ulysses",
+          "guides/model-funding-scenarios",
+          "guides/match-opportunities",
+          "guides/pursue-grants",
+          "guides/manage-funding-lifecycle",
+          "guides/respond-to-audits",
+          "guides/report-with-confidence",
+          "guides/create-a-project",
+          "guides/bring-in-spreadsheets",
+          "guides/automate-your-work"
         ]
       }
     ]
@@ -81,6 +96,62 @@
     }
   },
   "redirects": [
+    {
+      "source": "/concepts/overview",
+      "destination": "/concepts/workspace"
+    },
+    {
+      "source": "/use-cases/see-your-portfolio",
+      "destination": "/guides/see-your-portfolio"
+    },
+    {
+      "source": "/use-cases/see-how-its-funded",
+      "destination": "/guides/see-how-its-funded"
+    },
+    {
+      "source": "/use-cases/ask-ulysses",
+      "destination": "/guides/ask-ulysses"
+    },
+    {
+      "source": "/use-cases/model-funding-scenarios",
+      "destination": "/guides/model-funding-scenarios"
+    },
+    {
+      "source": "/use-cases/pursue-grants",
+      "destination": "/guides/pursue-grants"
+    },
+    {
+      "source": "/use-cases/manage-funding-lifecycle",
+      "destination": "/guides/manage-funding-lifecycle"
+    },
+    {
+      "source": "/use-cases/respond-to-audits",
+      "destination": "/guides/respond-to-audits"
+    },
+    {
+      "source": "/use-cases/report-with-confidence",
+      "destination": "/guides/report-with-confidence"
+    },
+    {
+      "source": "/use-cases/bring-in-spreadsheets",
+      "destination": "/guides/bring-in-spreadsheets"
+    },
+    {
+      "source": "/use-cases/automate-your-work",
+      "destination": "/guides/automate-your-work"
+    },
+    {
+      "source": "/use-cases/add-a-project",
+      "destination": "/guides/create-a-project"
+    },
+    {
+      "source": "/use-cases/find-award-funding",
+      "destination": "/guides/match-opportunities"
+    },
+    {
+      "source": "/guides/overview",
+      "destination": "/use-cases/overview"
+    },
     {
       "source": "/cli/install",
       "destination": "/interfaces/cli"
